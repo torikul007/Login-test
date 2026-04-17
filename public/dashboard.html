@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+
+<h2>User Data</h2>
+
+<table border="1">
+<thead>
+<tr>
+<th>Email</th>
+<th>Password</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody id="dataTable"></tbody>
+</table>
+
+<script>
+fetch("/data")
+.then(res => res.json())
+.then(data => {
+  const table = document.getElementById("dataTable");
+
+  data.forEach(user => {
+    const row = `
+    <tr>
+      <td>${user.email}</td>
+      <td>${user.password}</td>
+      <td>${new Date(user.date).toLocaleString()}</td>
+    </tr>`;
+    table.innerHTML += row;
+  });
+});
+</script>
+
+</body>
+</html>
